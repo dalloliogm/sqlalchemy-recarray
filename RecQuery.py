@@ -25,6 +25,16 @@ class RecQuery(Query):
     >>> results[0]
     first row in results
     """
+    
+
+    def __iter__(self):
+        return Query.__iter__(self.private())
+
+    def private(self):
+        crit = (self._mapper_zero().class_.public == True)
+        
+        return self.enable_assertions(False).filter(crit)
+
 
 
 
